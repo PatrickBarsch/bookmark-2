@@ -1,7 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/bookmark'
-require 'pg'
 
 class BookmarkManager < Sinatra::Base
   configure :development do
@@ -24,12 +23,7 @@ class BookmarkManager < Sinatra::Base
   post '/add_bookmark' do
     title = params[:bookmark_title]
     url = params[:bookmark_url]
-    if ENV['RACK_ENV'] == 'test'
-      con = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      con = PG.connect(dbname: 'bookmark_manager')
-    end
-    con.exec("INSERT INTO bookmarks(title, url) VALUES('#{ title }', '#{ url }');")
+    Bookmark.create(title,url)
     redirect '/bookmarks'
   end
 

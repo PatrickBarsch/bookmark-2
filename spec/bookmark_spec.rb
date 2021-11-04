@@ -13,5 +13,12 @@ describe Bookmark do
       expect(bookmarks).to include({ title: 'Twitter', url: 'http://www.twitter.com/'})
       expect(bookmarks).to include({ title: 'Google', url: 'http://www.google.com/'})
     end
+    describe '#create' do
+      it 'adds a bookmark to BookmarkManager' do 
+        Bookmark.create('Makers', 'http://www.makersacademy.com/')
+        bookmarks = Bookmark.all
+        expect(bookmarks).to include({ title: 'Makers', url: "http://www.makersacademy.com/"})
+      end
+    end
   end
 end
