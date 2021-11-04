@@ -9,6 +9,6 @@ class Bookmark
     end
 
     rs = con.exec 'SELECT * FROM bookmarks'
-    rs.map { |bookmark| bookmark['url'] }
+    rs.map { |bookmark| { title: bookmark['title'], url: bookmark['url'] } }
   end
 end
